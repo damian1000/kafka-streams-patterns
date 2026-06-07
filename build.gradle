@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+}
+
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.kafka:kafka-streams:4.3.0'
+    implementation 'org.slf4j:slf4j-simple:2.0.17'
+
+    testImplementation platform('org.junit:junit-bom:6.1.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs << '-Xlint:deprecation' << '-Werror'
+}
