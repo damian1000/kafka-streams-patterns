@@ -20,6 +20,7 @@ public class WindowedStreamExample {
     static final String OUTPUT_TOPIC = "output";
     static final Duration WINDOW_SIZE = Duration.ofMinutes(5);
 
+    @Generated
     public static void main(String[] args) {
         KafkaStreams streams = new KafkaStreams(buildTopology(), runtimeProperties());
         Runtime.getRuntime().addShutdownHook(new Thread(streams::close, "kafka-streams-shutdown"));

@@ -21,6 +21,7 @@ public class JoinedStreams {
     static final String JOINED_TOPIC = "enriched-clicks";
     static final Duration JOIN_WINDOW = Duration.ofSeconds(5);
 
+    @Generated
     public static void main(String[] args) {
         KafkaStreams streams = new KafkaStreams(buildTopology(), runtimeProperties());
         Runtime.getRuntime().addShutdownHook(new Thread(streams::close, "kafka-streams-shutdown"));

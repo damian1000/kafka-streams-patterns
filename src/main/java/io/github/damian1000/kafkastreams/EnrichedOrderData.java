@@ -18,6 +18,7 @@ public class EnrichedOrderData {
     static final String DETAILS_TOPIC = "customer-details";
     static final String ENRICHED_TOPIC = "enriched-order-data";
 
+    @Generated
     public static void main(String[] args) {
         KafkaStreams streams = new KafkaStreams(buildTopology(), runtimeProperties());
         Runtime.getRuntime().addShutdownHook(new Thread(streams::close, "kafka-streams-shutdown"));

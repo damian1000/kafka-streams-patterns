@@ -19,9 +19,13 @@ import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Produced;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Disabled("Requires a running broker on localhost:9092 (see docker-compose.yml). Run manually with --tests KafkaStreamsLiveTest.")
 public class KafkaStreamsLiveTest {
+
+    private static final Logger log = LoggerFactory.getLogger(KafkaStreamsLiveTest.class);
 
     private final String bootstrapServers = "localhost:9092";
     private Path stateDirectory;
@@ -56,7 +60,7 @@ public class KafkaStreamsLiveTest {
                 .count();
 
         wordCounts.toStream()
-                .foreach((word, count) -> System.out.println("word: " + word + " -> " + count));
+                .foreach((word, count) -> log.info("word: {} -> {}", word, count));
 
         wordCounts.toStream()
                 .to(outputTopic, Produced.with(Serdes.String(), Serdes.Long()));

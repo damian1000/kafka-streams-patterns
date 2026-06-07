@@ -16,6 +16,7 @@ public class WordAppCount {
     static final String INPUT_TOPIC = "sentences";
     static final String OUTPUT_TOPIC = "word-count";
 
+    @Generated
     public static void main(String[] args) {
         KafkaStreams kafkaStreams = new KafkaStreams(buildTopology(), runtimeProperties());
         Runtime.getRuntime().addShutdownHook(new Thread(kafkaStreams::close, "kafka-streams-shutdown"));
