@@ -20,6 +20,7 @@ public class WindowedStreamExample {
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
+        props.put(StreamsConfig.STATESTORE_CACHE_MAX_BYTES_CONFIG, 0);
 
         // create a builder to define the topology of the Kafka Streams application
         StreamsBuilder builder = new StreamsBuilder();
@@ -38,6 +39,7 @@ public class WindowedStreamExample {
 
         // create and start the Kafka Streams application
         KafkaStreams streams = new KafkaStreams(builder.build(), props);
+        Runtime.getRuntime().addShutdownHook(new Thread(streams::close, "kafka-streams-shutdown"));
         streams.start();
     }
 

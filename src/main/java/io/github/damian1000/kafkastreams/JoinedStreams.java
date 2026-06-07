@@ -53,6 +53,7 @@ public class JoinedStreams {
 
         // create and start the Kafka Streams application
         KafkaStreams streams = new KafkaStreams(builder.build(), props);
+        Runtime.getRuntime().addShutdownHook(new Thread(streams::close, "kafka-streams-shutdown"));
         streams.start();
     }
 

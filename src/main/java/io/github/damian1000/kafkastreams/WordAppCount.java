@@ -29,6 +29,7 @@ public class WordAppCount {
                 .to("word-count", Produced.with(Serdes.String(), Serdes.Long()));
 
         KafkaStreams kafkaStreams = new KafkaStreams(streamsBuilder.build(), properties);
+        Runtime.getRuntime().addShutdownHook(new Thread(kafkaStreams::close, "kafka-streams-shutdown"));
         kafkaStreams.start();
     }
 }
