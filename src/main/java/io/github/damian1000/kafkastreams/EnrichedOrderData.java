@@ -1,4 +1,4 @@
-package com.example.kafkastreams;
+package io.github.damian1000.kafkastreams;
 
 import java.util.Properties;
 import org.apache.kafka.common.serialization.Serdes;

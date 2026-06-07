@@ -28,10 +28,10 @@ docker compose up -d
 Then run any of the patterns (in separate terminals so you can produce input and watch output):
 
 ```bash
-./gradlew --no-daemon run -PmainClass=com.example.kafkastreams.WordAppCount
+./gradlew --no-daemon run -PmainClass=io.github.damian1000.kafkastreams.WordAppCount
 # or directly via the jar:
 ./gradlew jar
-java -cp build/libs/kafka-streams-patterns-1.0.0.jar:$(./gradlew -q printRuntimeClasspath) com.example.kafkastreams.WordAppCount
+java -cp build/libs/kafka-streams-patterns-1.0.0.jar:$(./gradlew -q printRuntimeClasspath) io.github.damian1000.kafkastreams.WordAppCount
 ```
 
 Produce / consume against the broker:

@@ -1,4 +1,4 @@
-package com.example.kafkastreams;
+package io.github.damian1000.kafkastreams;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
