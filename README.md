@@ -1,6 +1,7 @@
 # Kafka Streams Patterns
 
 [![CI](https://github.com/damian1000/kafka-streams-patterns/actions/workflows/ci.yml/badge.svg)](https://github.com/damian1000/kafka-streams-patterns/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/damian1000/kafka-streams-patterns/graph/badge.svg)](https://codecov.io/gh/damian1000/kafka-streams-patterns)
 [![Kafka Streams](https://img.shields.io/badge/kafka--streams-4.3.0-orange)](https://kafka.apache.org/documentation/streams/)
 [![JDK](https://img.shields.io/badge/jdk-25-orange)](https://openjdk.org/projects/jdk/25/)
 
