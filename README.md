@@ -55,7 +55,7 @@ docker exec -it kafka kafka-console-consumer --bootstrap-server localhost:9092 \
 |---|---|---|
 | `WordAppCount` | `sentences` | `word-count` |
 | `WindowedStreamExample` | `input` | `output` |
-| `JoinedStreams` | `clicks`, `impressions` | (logs joined records to stdout) |
+| `JoinedStreams` | `clicks`, `impressions` | `enriched-clicks` |
 | `EnrichedOrderData` | `customer-orders`, `customer-details` | `enriched-order-data` |
 
 Topics are auto-created by the broker on first publish (default config in `docker-compose.yml`).
