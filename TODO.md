@@ -2,10 +2,13 @@
 
 ## Roadmap (prioritized)
 
-### P1 — fix README drift (cheap, do first)
+### P1 — done
 
-- **README says `JoinedStreams` "logs joined records to stdout"** (`README.md:58`). The actual topology in `JoinedStreams.buildTopology()` writes joined records to the `enriched-clicks` topic via `.to(JOINED_TOPIC, ...)` — there's no stdout logger. Update the README table to show the real output topic.
-- While you're in there, verify the other rows in that table match the real `.to(...)` targets in each topology.
+- README's topics table now shows `JoinedStreams` writing to `enriched-clicks`
+  (was incorrectly "logs joined records to stdout"). The other three rows
+  (`sentences` → `word-count`, `input` → `output`,
+  `customer-orders` + `customer-details` → `enriched-order-data`) were
+  verified against the `.to(...)` targets in each topology.
 
 ### P2 — pick one investment if you want to keep this repo
 
