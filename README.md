@@ -1,9 +1,8 @@
 # Kafka Streams Patterns
 
 [![CI](https://github.com/damian1000/kafka-streams-patterns/actions/workflows/ci.yml/badge.svg)](https://github.com/damian1000/kafka-streams-patterns/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/damian1000/kafka-streams-patterns/actions/workflows/codeql.yml/badge.svg)](https://github.com/damian1000/kafka-streams-patterns/actions/workflows/codeql.yml)
 [![codecov](https://codecov.io/gh/damian1000/kafka-streams-patterns/graph/badge.svg)](https://codecov.io/gh/damian1000/kafka-streams-patterns)
-[![Kafka Streams](https://img.shields.io/badge/kafka--streams-4.3.0-orange)](https://kafka.apache.org/documentation/streams/)
-[![JDK](https://img.shields.io/badge/jdk-25-orange)](https://openjdk.org/projects/jdk/25/)
 
 Four self-contained Kafka Streams topologies covering the patterns that come up most often in real stream processing: word count, windowed aggregation, stream-stream join with a time window, and KStream–KTable enrichment join.
 
