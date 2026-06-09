@@ -10,6 +10,8 @@ import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Produced;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class EnrichedOrderData {
@@ -37,14 +39,14 @@ public class EnrichedOrderData {
         // crashing the stream thread.
         customerOrders
                 .selectKey((key, value) -> {
-                    String[] fields = value.split(",");
+                    String[] fields = parseCsv(value);
                     return fields.length > 0 ? fields[0] : null;
                 })
                 .join(customerDetails, (order, details) -> {
                     if (details == null) return null;
                     try {
-                        String[] orderFields = order.split(",");
-                        String[] detailsFields = details.split(",");
+                        String[] orderFields = parseCsv(order);
+                        String[] detailsFields = parseCsv(details);
                         if (orderFields.length < 5 || detailsFields.length < 4) return null;
                         return String.format(
                                 "{\"customer_id\":\"%s\",\"order_id\":\"%s\",\"product\":\"%s\",\"quantity\":%d,\"customer_name\":\"%s\",\"customer_email\":\"%s\",\"customer_phone\":\"%s\",\"timestamp\":%d}",
@@ -60,6 +62,39 @@ public class EnrichedOrderData {
                 .to(ENRICHED_TOPIC, Produced.with(Serdes.String(), Serdes.String()));
 
         return builder.build();
+    }
+
+    // RFC-4180-style splitter: respects double-quoted fields (so commas and
+    // escaped `""` quotes inside a field don't end the field). Trailing empty
+    // fields are preserved.
+    static String[] parseCsv(String line) {
+        List<String> out = new ArrayList<>();
+        StringBuilder field = new StringBuilder();
+        boolean inQuotes = false;
+        for (int i = 0; i < line.length(); i++) {
+            char c = line.charAt(i);
+            if (inQuotes) {
+                if (c == '"') {
+                    if (i + 1 < line.length() && line.charAt(i + 1) == '"') {
+                        field.append('"');
+                        i++;
+                    } else {
+                        inQuotes = false;
+                    }
+                } else {
+                    field.append(c);
+                }
+            } else if (c == ',') {
+                out.add(field.toString());
+                field.setLength(0);
+            } else if (c == '"' && field.length() == 0) {
+                inQuotes = true;
+            } else {
+                field.append(c);
+            }
+        }
+        out.add(field.toString());
+        return out.toArray(new String[0]);
     }
 
     static Properties runtimeProperties() {

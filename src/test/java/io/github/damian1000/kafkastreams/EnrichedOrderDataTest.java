@@ -83,6 +83,38 @@ class EnrichedOrderDataTest {
         }
     }
 
+    @Test
+    void productNameContainingCommaIsHandledWhenQuoted() {
+        try (TopologyTestDriver driver = new TopologyTestDriver(EnrichedOrderData.buildTopology(), testProps())) {
+            TestInputTopic<String, String> orders = driver.createInputTopic(
+                    EnrichedOrderData.ORDERS_TOPIC,
+                    Serdes.String().serializer(), Serdes.String().serializer());
+            TestInputTopic<String, String> details = driver.createInputTopic(
+                    EnrichedOrderData.DETAILS_TOPIC,
+                    Serdes.String().serializer(), Serdes.String().serializer());
+            TestOutputTopic<String, String> enriched = driver.createOutputTopic(
+                    EnrichedOrderData.ENRICHED_TOPIC,
+                    Serdes.String().deserializer(), Serdes.String().deserializer());
+
+            details.pipeInput("cust1", "cust1,Alice,alice@example.com,+44-555-0100");
+            // Product name contains a comma; it would be split incorrectly without RFC-4180 parsing.
+            orders.pipeInput("ignored", "cust1,ord1,\"Widget, deluxe\",3,1700000000000");
+
+            String value = enriched.readKeyValue().value;
+            assertTrue(value.contains("\"product\":\"Widget, deluxe\""), value);
+            assertTrue(value.contains("\"quantity\":3"), value);
+        }
+    }
+
+    @Test
+    void parseCsvHandlesEscapedQuotes() {
+        String[] fields = EnrichedOrderData.parseCsv("a,\"he said \"\"hi\"\"\",c");
+        assertEquals(3, fields.length);
+        assertEquals("a", fields[0]);
+        assertEquals("he said \"hi\"", fields[1]);
+        assertEquals("c", fields[2]);
+    }
+
     private static Properties testProps() {
         Properties p = new Properties();
         p.put(StreamsConfig.APPLICATION_ID_CONFIG, "enriched-order-data-test");
