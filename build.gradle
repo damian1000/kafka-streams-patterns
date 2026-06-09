@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'com.diffplug.spotless' version '7.0.4'
+    id 'org.owasp.dependencycheck' version '12.1.0'
 }
 
 version = '1.0.0'
@@ -65,4 +66,17 @@ spotless {
 
 tasks.withType(JavaCompile).configureEach {
     options.compilerArgs << '-Xlint:deprecation' << '-Werror'
+}
+
+// OWASP dependency vulnerability scanner. Run: ./gradlew dependencyCheckAnalyze
+// Fails the build on any dependency with CVSS >= 7.0.
+dependencyCheck {
+    failBuildOnCVSS = 7.0f
+    formats = ['HTML', 'JSON']
+    analyzers {
+        assemblyEnabled = false
+        nodeEnabled = false
+        nodeAuditEnabled = false
+        nuspecEnabled = false
+    }
 }
