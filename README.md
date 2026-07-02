@@ -6,6 +6,14 @@
 
 Four self-contained Kafka Streams topologies covering the patterns that come up most often in real stream processing: word count, windowed aggregation, stream-stream join with a time window, and KStream–KTable enrichment join.
 
+## What it demonstrates
+
+- **Stateful aggregation** — `groupBy`/`groupByKey` into a materialized state store, not just stateless transforms.
+- **Tumbling time windows** — bounding an otherwise-unbounded aggregation by wall-clock time, with the windowed key surfaced on the output rather than hidden.
+- **Stream-stream joins** — correlating two independent streams (clicks, impressions) within a bounded `JoinWindows`, the pattern behind attribution/matching problems.
+- **KTable enrichment** — joining a stream against table semantics (latest-value-per-key) rather than another stream, the pattern behind reference-data lookups.
+- **One topology per pattern, each independently runnable** — each class stays a small, readable `main` rather than a shared test harness, so a reviewer can read (or run) exactly one pattern in isolation without tracing through the others.
+
 ## Patterns
 
 | Class | Pattern | What it shows |
