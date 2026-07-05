@@ -75,7 +75,7 @@ Topics are auto-created by the broker on first publish (default config in `docke
 ./gradlew test --tests KafkaStreamsLiveTest -DargLine="-Djunit.jupiter.conditions.deactivate=*"
 ```
 
-For purely topology-level testing without a broker, `org.apache.kafka.streams.TopologyTestDriver` is the right tool — these patterns are deliberately kept as small `main` methods rather than wrapped in test-driver harnesses to keep each pattern readable in isolation.
+For purely topology-level testing without a broker, use `org.apache.kafka.streams.TopologyTestDriver` — these patterns are kept as small `main` methods rather than wrapped in test-driver harnesses so each stays readable in isolation.
 
 ## Stack
 
