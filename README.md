@@ -16,12 +16,12 @@ Four self-contained Kafka Streams topologies covering the patterns that come up 
 
 ## Patterns
 
-| Class | Pattern | What it shows |
-|---|---|---|
-| `WordAppCount` | Stateful aggregation | `flatMapValues` → `groupBy` → `count()` materialized into a state store, written back to a count topic. |
+| Class                   | Pattern               | What it shows                                                                                                                                     |
+| ----------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `WordAppCount`          | Stateful aggregation  | `flatMapValues` → `groupBy` → `count()` materialized into a state store, written back to a count topic.                                           |
 | `WindowedStreamExample` | Tumbling time windows | `groupByKey` → `windowedBy(TimeWindows.ofSizeWithNoGrace(5min))` → `count()`, with the windowed key flattened into `key@startTime` on the output. |
-| `JoinedStreams` | KStream–KStream join | Inner join of two streams (`clicks`, `impressions`) within a 5-second `JoinWindows` using `StreamJoined.with(...)`. |
-| `EnrichedOrderData` | KStream–KTable join | Selects a key off the orders stream and joins against a `KTable` of customer details, producing enriched order events. |
+| `JoinedStreams`         | KStream–KStream join  | Inner join of two streams (`clicks`, `impressions`) within a 5-second `JoinWindows` using `StreamJoined.with(...)`.                               |
+| `EnrichedOrderData`     | KStream–KTable join   | Selects a key off the orders stream and joins against a `KTable` of customer details, producing enriched order events.                            |
 
 Each class has a `main` method, so each pattern can be run independently against a broker.
 
@@ -58,12 +58,12 @@ docker exec -it kafka kafka-console-consumer --bootstrap-server localhost:9092 \
 
 ## Topics each pattern uses
 
-| Pattern | Input topic(s) | Output topic |
-|---|---|---|
-| `WordAppCount` | `sentences` | `word-count` |
-| `WindowedStreamExample` | `input` | `output` |
-| `JoinedStreams` | `clicks`, `impressions` | `enriched-clicks` |
-| `EnrichedOrderData` | `customer-orders`, `customer-details` | `enriched-order-data` |
+| Pattern                 | Input topic(s)                        | Output topic          |
+| ----------------------- | ------------------------------------- | --------------------- |
+| `WordAppCount`          | `sentences`                           | `word-count`          |
+| `WindowedStreamExample` | `input`                               | `output`              |
+| `JoinedStreams`         | `clicks`, `impressions`               | `enriched-clicks`     |
+| `EnrichedOrderData`     | `customer-orders`, `customer-details` | `enriched-order-data` |
 
 Topics are auto-created by the broker on first publish (default config in `docker-compose.yml`).
 
