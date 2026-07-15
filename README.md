@@ -85,10 +85,6 @@ For purely topology-level testing without a broker, use `org.apache.kafka.stream
 - Confluent CP 7.7.1 (KRaft mode, no Zookeeper)
 - Gradle 9.5.1
 
-## Related
-
-For Spring Boot + Kafka (retries, DLQ, microservice patterns), see [kafka-microservices-demo](https://github.com/damian1000/kafka-microservices-demo). This repo focuses on the lower-level Streams DSL.
-
 ## License
 
 Apache 2.0 — see [LICENSE](LICENSE).
