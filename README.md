@@ -9,7 +9,7 @@ Four self-contained Kafka Streams topologies covering the patterns that come up 
 ## Streaming techniques
 
 - **Stateful aggregation** — `groupBy`/`groupByKey` into a materialized state store, not just stateless transforms.
-- **Tumbling time windows** — bounding an otherwise-unbounded aggregation by wall-clock time, with the windowed key surfaced on the output rather than hidden.
+- **Tumbling time windows** — bounding an otherwise-unbounded aggregation into fixed windows drawn from each record's event timestamp (stream time, not wall-clock), with the windowed key surfaced on the output rather than hidden.
 - **Stream-stream joins** — correlating two independent streams (clicks, impressions) within a bounded `JoinWindows`, the pattern behind attribution/matching problems.
 - **KTable enrichment** — joining a stream against table semantics (latest-value-per-key) rather than another stream, the pattern behind reference-data lookups.
 - **One topology per pattern, each independently runnable** — each class stays a small, readable `main` rather than a shared test harness, so a reviewer can read (or run) exactly one pattern in isolation without tracing through the others.
@@ -75,7 +75,7 @@ Topics are auto-created by the broker on first publish (default config in `docke
 ./gradlew test --tests KafkaStreamsLiveTest -DargLine="-Djunit.jupiter.conditions.deactivate=*"
 ```
 
-For purely topology-level testing without a broker, use `org.apache.kafka.streams.TopologyTestDriver` — these patterns are kept as small `main` methods rather than wrapped in test-driver harnesses so each stays readable in isolation.
+Topology-level tests run without a broker via `org.apache.kafka.streams.TopologyTestDriver` — see `EnrichedOrderDataTest`, `JoinedStreamsTest`, `WindowedStreamExampleTest`, and `WordAppCountTest`. Each pattern also stays runnable as a small `main` method against a real broker.
 
 ## Stack
 
