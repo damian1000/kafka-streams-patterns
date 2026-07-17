@@ -6,7 +6,7 @@
 
 Four self-contained Kafka Streams topologies covering the patterns that come up most often in real stream processing: word count, windowed aggregation, stream-stream join with a time window, and KStream–KTable enrichment join.
 
-## What it demonstrates
+## Streaming techniques
 
 - **Stateful aggregation** — `groupBy`/`groupByKey` into a materialized state store, not just stateless transforms.
 - **Tumbling time windows** — bounding an otherwise-unbounded aggregation by wall-clock time, with the windowed key surfaced on the output rather than hidden.
