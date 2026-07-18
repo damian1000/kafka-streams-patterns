@@ -1,12 +1,12 @@
 plugins {
-    id 'io.github.damian1000.java-conventions' version '0.1.0'
+    id 'io.github.damian1000.java-conventions' version '0.3.0'
 }
 
 version = '1.0.0'
 
 dependencies {
     implementation 'org.apache.kafka:kafka-streams:4.3.1'
-    implementation 'org.slf4j:slf4j-simple:2.0.18'
+    implementation deps.slf4j.simple
     testImplementation 'org.apache.kafka:kafka-streams-test-utils:4.3.1'
 }
 
