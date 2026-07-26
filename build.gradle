@@ -13,3 +13,14 @@ dependencies {
 tasks.withType(JavaCompile).configureEach {
     options.compilerArgs << '-Xlint:deprecation' << '-Werror'
 }
+
+// Forwards the JUnit condition switch into the forked test JVM. Gradle does not pass its own -D
+// system properties to that JVM, so without this the documented live-broker command left
+// @Disabled in force: the run reported BUILD SUCCESSFUL having skipped the only test it named.
+def deactivateConditions = providers.systemProperty('junit.jupiter.conditions.deactivate').orNull
+
+tasks.named('test') {
+    if (deactivateConditions != null) {
+        systemProperty 'junit.jupiter.conditions.deactivate', deactivateConditions
+    }
+}

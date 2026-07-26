@@ -72,8 +72,11 @@ Topics are auto-created by the broker on first publish (default config in `docke
 `KafkaStreamsLiveTest` exercises a wordcount topology against a real broker. It is `@Disabled` by default because it requires `docker compose up` and blocks for ~30 seconds. Run it manually with:
 
 ```bash
-./gradlew test --tests KafkaStreamsLiveTest -DargLine="-Djunit.jupiter.conditions.deactivate=*"
+docker compose up -d
+./gradlew test --tests KafkaStreamsLiveTest -Djunit.jupiter.conditions.deactivate='*' --rerun
 ```
+
+The build forwards that property into the test JVM. Check the run actually executed the test rather than skipping it — `build/reports/tests/test/index.html` should show 1 test, 0 skipped.
 
 Topology-level tests run without a broker via `org.apache.kafka.streams.TopologyTestDriver` — see `EnrichedOrderDataTest`, `JoinedStreamsTest`, `WindowedStreamExampleTest`, and `WordAppCountTest`. Each pattern also stays runnable as a small `main` method against a real broker.
 
