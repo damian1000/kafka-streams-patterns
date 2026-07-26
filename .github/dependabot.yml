@@ -5,6 +5,14 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
+    ignore:
+      # settings.gradle maps this plugin id to com.github.damian1000.build-conventions:plugins
+      # through an eachPlugin resolutionStrategy. Dependabot does not run that mapping, so it
+      # asks JitPack for the plugin-marker coordinate io/github/damian1000/... which does not
+      # exist there; JitPack answers 401 for an unknown group and Dependabot reports
+      # private_source_authentication_failure. No credential fixes a coordinate that is not
+      # published — platform bumps are a deliberate estate-wide sweep.
+      - dependency-name: "io.github.damian1000.java-conventions"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
