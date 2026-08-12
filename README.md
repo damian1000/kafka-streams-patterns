@@ -1,8 +1,8 @@
 # Kafka Streams Patterns
 
-[![CI](https://github.com/damian1000/kafka-streams-patterns/actions/workflows/ci.yml/badge.svg)](https://github.com/damian1000/kafka-streams-patterns/actions/workflows/ci.yml)
-[![CodeQL](https://github.com/damian1000/kafka-streams-patterns/actions/workflows/codeql.yml/badge.svg)](https://github.com/damian1000/kafka-streams-patterns/actions/workflows/codeql.yml)
-[![codecov](https://codecov.io/gh/damian1000/kafka-streams-patterns/graph/badge.svg)](https://codecov.io/gh/damian1000/kafka-streams-patterns)
+[![CI](https://github.com/damianhoward/kafka-streams-patterns/actions/workflows/ci.yml/badge.svg)](https://github.com/damianhoward/kafka-streams-patterns/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/damianhoward/kafka-streams-patterns/actions/workflows/codeql.yml/badge.svg)](https://github.com/damianhoward/kafka-streams-patterns/actions/workflows/codeql.yml)
+[![codecov](https://codecov.io/gh/damianhoward/kafka-streams-patterns/graph/badge.svg)](https://codecov.io/gh/damianhoward/kafka-streams-patterns)
 
 Four self-contained Kafka Streams topologies covering the patterns that come up most often in real stream processing: word count, windowed aggregation, stream-stream join with a time window, and KStream–KTable enrichment join.
 
@@ -36,10 +36,10 @@ docker compose up -d
 Then run any of the patterns (in separate terminals so you can produce input and watch output):
 
 ```bash
-./gradlew --no-daemon run -PmainClass=io.github.damian1000.kafkastreams.WordAppCount
+./gradlew --no-daemon run -PmainClass=com.damianhoward.kafkastreams.WordAppCount
 # or directly via the jar:
 ./gradlew jar
-java -cp build/libs/kafka-streams-patterns-1.0.0.jar:$(./gradlew -q printRuntimeClasspath) io.github.damian1000.kafkastreams.WordAppCount
+java -cp build/libs/kafka-streams-patterns-1.0.0.jar:$(./gradlew -q printRuntimeClasspath) com.damianhoward.kafkastreams.WordAppCount
 ```
 
 Produce / consume against the broker:

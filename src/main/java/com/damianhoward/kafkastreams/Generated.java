@@ -1,4 +1,4 @@
-package io.github.damian1000.kafkastreams;
+package com.damianhoward.kafkastreams;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
