@@ -1,4 +1,4 @@
-package io.github.damian1000.kafkastreams;
+package com.damianhoward.kafkastreams;
 
 import org.apache.kafka.streams.StreamsConfig;
 import org.junit.jupiter.api.Test;
