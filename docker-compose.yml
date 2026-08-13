@@ -18,3 +18,14 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+    # A broker that is listening is not a broker that is ready: the container accepts a TCP
+    # connection well before KRaft has elected a controller and the API is usable, so a port check
+    # would report success into which a producer then fails. Asking the broker to describe its own
+    # cluster over the host listener is the cheapest question that cannot be answered until it
+    # actually can serve one, and it is the listener a client on the host will use.
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-broker-api-versions --bootstrap-server localhost:9092 >/dev/null 2>&1"]
+      interval: 5s
+      timeout: 10s
+      retries: 20
+      start_period: 15s
